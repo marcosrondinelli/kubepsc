@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-localreg
+  labels:
+    app: test-localreg
+spec:
+  selector:
+    matchLabels:
+      app: test-localreg
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: test-localreg
+    spec:
+      containers:
+      - name: mydebimage
+        image: 10.30.170.50:5000/mydebimage:v1
