@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teste-pvc
+  labels:
+    app: teste-pvc
+spec:
+  selector:
+    matchLabels:
+      app: teste-pvc
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: teste-pvc
+    spec:
+      containers:
+      - name: echoserver
+        image: k8s.gcr.io/echoserver:1.4
+        volumeMounts:
+        # name must match the volume name below
+          - name: nfs-sc-vol
+            mountPath: "/mnt"
+      volumes:
+      - name: nfs-sc-vol
+        persistentVolumeClaim:
+          claimName: nfs-sc-claim

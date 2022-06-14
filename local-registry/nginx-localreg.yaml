@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-nginx
+  labels:
+    app: local-nginx
+spec:
+  selector:
+    matchLabels:
+      app: local-nginx
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: local-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: 10.30.170.50:5000/nginx:v1.00
+        imagePullPolicy: IfNotPresent
