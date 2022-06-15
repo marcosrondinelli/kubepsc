@@ -29,3 +29,6 @@ spec:
               name: blue-service
               port:
                 number: 5678
+# Neste arquivo não ha a entrada -host, dessa forma
+# qualquer host/IP que chegar com /red, /green ou /blue
+# sera redirecionado ao servico interno correspondente

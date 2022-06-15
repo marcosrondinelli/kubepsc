@@ -17,3 +17,5 @@ spec:
       containers:
       - name: echoserver
         image: k8s.gcr.io/echoserver:1.4
+
+#Este app escuta somente na porta 8080

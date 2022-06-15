@@ -13,4 +13,7 @@ spec:
               service:
                 name: nodeport-helloworld
                 port:
-                  number: 80
+                  number: 8888 #Internal service target port
+# O host hello.com sera redirecionado ao servico
+# interno de nome nodeport-helloworld
+

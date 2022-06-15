@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-clusterip-helloworld
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+ rules:
+   - host: hello.com
+     http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: clusterip-helloworld
+              port:
+                number: 8777 #Internal service target port 
+
+# O host hello.com sera redirecionado ao servico 
+# interno de nome clusterip-helloworld
+

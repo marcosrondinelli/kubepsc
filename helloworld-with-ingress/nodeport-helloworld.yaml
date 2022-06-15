@@ -7,6 +7,6 @@ spec:
   selector:
     app: helloworld
   ports:
-    - port: 80         # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-      targetPort: 8080   # Optional field.
-      nodePort: 30080  # Optional field. By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+    - port: 8888        # Internal service port used to communicate with the target app
+      targetPort: 8080  # App target port
+      nodePort: 30080   # Node port used for external access (default: 30000-32767)

@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: clusterip-helloworld
+spec:
+  selector:
+    app: helloworld
+  ports:
+    - port: 8777 # Internal itself service port (optional)
+      targetPort: 8080 # App target port 
