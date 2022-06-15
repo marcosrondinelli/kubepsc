@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasa-pgr-dev
+  labels:
+    app: tasa-pgr-dev
+  namespace: tasa
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tasa-pgr-dev
+  template:
+    metadata:
+      labels:
+        app: tasa-pgr-dev
+    spec:
+      containers:
+      - name: tasa-pgr-dev
+        image: 10.30.170.50:5000/pgr-rest:1.1.0
+        ports:
+        - containerPort: 8080

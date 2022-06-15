@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tasa-pgr-dev-ingress
+  annotations:
+  namespace: tasa-dev
+spec:
+  rules:
+  - host: toyotafake.com.ar
+    http:
+      paths:
+      - path: /pl/pgr/api/
+        pathType: Prefix
+        backend:
+          service:
+            name: tasa-pgr-dev-clusterip
+            port:
+              number: 8181

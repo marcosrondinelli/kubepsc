@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasa-pgr-deployment
+  labels:
+    app.kubernetes.io/name: tasa-pgr-name
+  namespace: tasa
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tasa-pgr-name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tasa-pgr-name
+    spec:
+      containers:
+      - name: tasa-pgr-container
+        image: registry-host:5000/pgr-rest:1.1.0
+        ports:
+        - containerPort: 8080
+        env:
+          - name: "pgr.db.postgresql.url"
+            valueFrom:
+              configMapKeyRef:
+                name: tasa-pgr-configmap
+                key: BD_URL
+          - name: "pgr.db.postgresql.user"
+            valueFrom:
+              secretKeyRef:
+                name:  tasa-pgr-secret
+                key: BD_USER
+          - name: "pgr.db.postgresql.password"
+            valueFrom:
+              secretKeyRef:
+                name:  tasa-pgr-secret
+                key: BD_PASSWORD
+          - name: "pgr.db.postgresql.query"
+            valueFrom:
+              configMapKeyRef:
+                name: tasa-pgr-configmap
+                key: BD_QUERY
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 30
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/
+            port: 8080
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 30
+          failureThreshold: 5
