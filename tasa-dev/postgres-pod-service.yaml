@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-pod
+  namespace: tasa-dev
+  labels:
+    app: postgres-pod
+spec:
+  volumes:
+    - name: tasa-pv-storage # Volume name
+      persistentVolumeClaim:
+        claimName: postgres-vol-claim # Source of the volume 
+  containers:
+  - name: postgres-container01
+    image: postgres:14.2-alpine3.15 
+    env:
+    - name: POSTGRES_PASSWORD
+      value: "Senha"
+    ports:
+    - containerPort: 5432
+    volumeMounts:
+      - name: tasa-pv-storage # Must be the same declared above
+        mountPath: /var/lib/postgresql/data # Mount point inside the pod
+        subPath: postgresqlsubdir 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: tasa-dev
+spec:
+  type: NodePort
+  selector:
+    app: postgres-pod
+  ports:
+    - protocol: TCP
+      nodePort: 30000
+      port: 5432
+      targetPort: 5432
+

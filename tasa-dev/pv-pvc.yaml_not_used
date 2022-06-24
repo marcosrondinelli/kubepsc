@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tasa-pv-volume
+  labels:
+    type: local
+  namespace: tasa
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/tasa"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tasa-pv-claim
+  namespace: tasa
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

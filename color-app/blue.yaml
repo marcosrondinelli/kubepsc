@@ -9,7 +9,7 @@ spec:
     - name: blue-app
       image: hashicorp/http-echo
       args:
-        - "-text=blue"
+        - "-text=bluev2"
 
 ---
 
