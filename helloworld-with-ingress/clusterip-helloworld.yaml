@@ -6,5 +6,5 @@ spec:
   selector:
     app: helloworld
   ports:
-    - port: 8777 # Internal itself service port (optional)
-      targetPort: 8080 # App target port 
+    - port: 8777 # Port that this service listen to (it can be anyone)
+      targetPort: 8080 # Target port of HelloWorld app (deployment)
